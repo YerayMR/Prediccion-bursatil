@@ -28,6 +28,10 @@ if st.button("Ejecutar predicción"):
             inicio = fin - timedelta(days=365 * 5)  # Últimos 5 años
             datos = yf.download(ticker, start=inicio, end=fin)
 
+            # Mostrar los datos descargados
+            st.write("Datos descargados:")
+            st.dataframe(datos)
+
             required_columns = ['Open', 'High', 'Low', 'Close', 'Volume']
             if datos.empty or not all(column in datos.columns for column in required_columns):
                 st.error(f"No se encontraron datos suficientes para el ticker {ticker}.")
