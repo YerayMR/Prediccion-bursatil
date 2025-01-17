@@ -31,9 +31,9 @@ if st.button("Ejecutar predicción"):
             # Si las columnas contienen el ticker, renombrarlas
             datos.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
 
-            # Mostrar los datos descargados
-            st.write("Datos descargados (columnas renombradas):")
-            st.dataframe(datos)
+            # Mostrar los datos descargados en caso de error
+            # st.write("Datos descargados (columnas renombradas):")
+            # st.dataframe(datos)
 
             required_columns = ['Open', 'High', 'Low', 'Close', 'Volume']
             if datos.empty or not all(column in datos.columns for column in required_columns):
@@ -88,6 +88,6 @@ if st.button("Ejecutar predicción"):
 
         # Mostrar los datos recientes como tabla
         st.write("Datos recientes de la acción:")
-        st.dataframe(datos_diarios.tail(10))
+        st.dataframe(datos_diarios.tail(10)['Date','Open', 'High', 'Low', 'Close', 'Volume'])
     else:
         st.warning("Seleccione un ticker para mostrar los datos.")
