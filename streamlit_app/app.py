@@ -28,18 +28,17 @@ if st.button("Ejecutar predicción"):
             inicio = fin - timedelta(days=365 * 5)  # Últimos 5 años
             datos = yf.download(ticker, start=inicio, end=fin)
 
-            # Mostrar los datos descargados
-            st.write("Datos descargados:")
-            st.dataframe(datos)
+            # Mostrar las columnas descargadas para depuración
+            st.write("Columnas descargadas:", datos.columns)
 
             required_columns = ['Open', 'High', 'Low', 'Close', 'Volume']
             if datos.empty or not all(column in datos.columns for column in required_columns):
-                st.error(f"No se encontraron datos suficientes para el ticker {ticker}.")
+                st.error(f"No se encontraron todas las columnas necesarias para el ticker {ticker}.")
                 return None, None
 
             # Asegurarse de que el índice es de tipo datetime
             datos.index = pd.to_datetime(datos.index)
-            
+
             # Agregar una columna de mes y calcular agregados mensuales
             datos['Date'] = datos.index
             datos['Month'] = datos['Date'].dt.to_period('M')
@@ -54,6 +53,7 @@ if st.button("Ejecutar predicción"):
         except Exception as e:
             st.error(f"Error al obtener datos: {e}")
             return None, None
+
 
     # Cargar datos para el ticker seleccionado
     datos_diarios, datos_mensuales = obtener_datos_acciones(ticker)
