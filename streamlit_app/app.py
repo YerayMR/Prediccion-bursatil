@@ -31,7 +31,7 @@ if st.button("Ejecutar predicción"):
             required_columns = ['Open', 'High', 'Low', 'Close', 'Volume']
             if datos.empty or not all(column in datos.columns for column in required_columns):
                 st.error(f"No se encontraron datos suficientes para el ticker {ticker}.")
-                return None
+                return None, None
 
             # Asegurarse de que el índice es de tipo datetime
             datos.index = pd.to_datetime(datos.index)
