@@ -30,6 +30,9 @@ def obtener_datos_acciones(ticker):
             st.error(f"No se encontraron datos para el ticker {ticker}.")
             return None
 
+        # Asegurarse de que el índice es de tipo datetime
+        datos.index = pd.to_datetime(datos.index)
+        
         # Agregar una columna de mes y calcular agregados mensuales
         datos['Date'] = datos.index
         datos['Month'] = datos['Date'].dt.to_period('M')
