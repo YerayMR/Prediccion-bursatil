@@ -28,8 +28,12 @@ if st.button("Ejecutar predicción"):
             inicio = fin - timedelta(days=365 * 5)  # Últimos 5 años
             datos = yf.download(ticker, start=inicio, end=fin)
 
-            # Mostrar las columnas descargadas para depuración
-            st.write("Columnas descargadas:", datos.columns)
+            # Verificar si las columnas tienen el formato multi-nivel
+            if ',' in datos.columns[0]:
+                datos.columns = [col.split(', ')[0] for col in datos.columns]
+
+            # Mostrar las columnas renombradas
+            st.write("Columnas renombradas:", datos.columns)
 
             required_columns = ['Open', 'High', 'Low', 'Close', 'Volume']
             if datos.empty or not all(column in datos.columns for column in required_columns):
@@ -53,6 +57,7 @@ if st.button("Ejecutar predicción"):
         except Exception as e:
             st.error(f"Error al obtener datos: {e}")
             return None, None
+
 
 
     # Cargar datos para el ticker seleccionado
