@@ -1,19 +1,9 @@
-import pandas as pd
 import yfinance as yf
 
 def obtener_datos_acciones(ticker):
-    """
-    Descarga datos históricos de una acción usando Yahoo Finance.
-
-    Args:
-        ticker (str): Símbolo de la acción.
-
-    Returns:
-        pd.DataFrame: Datos de la acción.
-    """
     try:
-        data = yf.download(ticker)
-        return data
+        datos = yf.download(ticker, period="1y")
+        return datos
     except Exception as e:
-        print(f"Error al descargar datos para {ticker}: {e}")
+        print(f"Error al obtener datos: {e}")
         return None
