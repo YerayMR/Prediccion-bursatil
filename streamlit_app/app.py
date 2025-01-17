@@ -26,8 +26,9 @@ def obtener_datos_acciones(ticker):
         inicio = fin - timedelta(days=365 * 5)  # Últimos 5 años
         datos = yf.download(ticker, start=inicio, end=fin)
 
-        if datos.empty:
-            st.error(f"No se encontraron datos para el ticker {ticker}.")
+        required_columns = ['Open', 'High', 'Low', 'Close', 'Volume']
+        if datos.empty or not all(column in datos.columns for column in required_columns):
+            st.error(f"No se encontraron datos suficientes para el ticker {ticker}.")
             return None
 
         # Asegurarse de que el índice es de tipo datetime
