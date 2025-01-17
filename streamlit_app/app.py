@@ -88,6 +88,6 @@ if st.button("Ejecutar predicción"):
 
         # Mostrar los datos recientes como tabla
         st.write("Datos recientes de la acción:")
-        st.dataframe(datos_diarios.tail(10)['Date','Open', 'High', 'Low', 'Close', 'Volume'])
+        st.dataframe(datos_diarios.tail(10))
     else:
         st.warning("Seleccione un ticker para mostrar los datos.")
