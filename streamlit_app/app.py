@@ -32,8 +32,8 @@ if st.button("Ejecutar predicción"):
             datos.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
 
             # Mostrar los datos descargados
-            st.write("Datos descargados (columnas renombradas):")
-            st.dataframe(datos)
+            # st.write("Datos descargados (columnas renombradas):")
+            # st.dataframe(datos)
 
             required_columns = ['Open', 'High', 'Low', 'Close', 'Volume']
             if datos.empty or not all(column in datos.columns for column in required_columns):
