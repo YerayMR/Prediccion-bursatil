@@ -73,4 +73,22 @@ if st.button("Ejecutar predicción"):
             ultimo_mes = datos_mensuales.iloc[-1][['Open', 'High', 'Low', 'Close', 'Volume']]
 
             # Escalado de datos (ajustar según cómo se entrenó el modelo)
-            scaler = Standard
+            scaler = StandardScaler()
+            X_scaled = scaler.fit_transform(datos_mensuales[['Open', 'High', 'Low', 'Close', 'Volume']])
+            
+            # Predecir el próximo mes
+            prediccion = model.predict([X_scaled[-1]])[0]
+            variacion_porcentaje = ((prediccion - ultimo_mes['Close']) / ultimo_mes['Close']) * 100
+
+            # Mostrar resultados
+            st.metric("Precio predicho para el próximo mes", f"${prediccion:.2f}")
+            st.write(f"Variación esperada: {variacion_porcentaje:.2f}%")
+
+        except Exception as e:
+            st.error(f"Error en la predicción: {e}")
+
+        # Mostrar los datos recientes como tabla
+        st.write("Datos recientes de la acción:")
+        st.dataframe(datos_diarios.tail(10))
+    else:
+        st.warning("Seleccione un ticker para mostrar los datos.")
