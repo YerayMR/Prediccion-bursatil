@@ -29,8 +29,7 @@ if st.button("Ejecutar predicción"):
             datos = yf.download(ticker, start=inicio, end=fin)
 
             # Si las columnas contienen el ticker, renombrarlas
-            if ',' in datos.columns[0]:
-                datos.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
+            datos.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
 
             # Mostrar los datos descargados
             st.write("Datos descargados (columnas renombradas):")
