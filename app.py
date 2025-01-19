@@ -24,6 +24,7 @@ if st.button("Ejecutar predicción"):
         st.metric("Precio predicho para el próximo mes", f"${prediccion:.2f}")
         st.write(f"Variación esperada: {variacion:.2f}%")
         st.write("Datos recientes de la acción:")
+        datos_diarios = obtener_datos_acciones(ticker)
         st.dataframe(datos_diarios[['Open', 'High', 'Low', 'Close', 'Volume']].tail(10))
 
 
