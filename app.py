@@ -18,13 +18,16 @@ with tab1:
     # Modo actual
     ticker = st.selectbox("Seleccione una acción:", sp500_tickers)
     if st.button("Ejecutar predicción"):
-        prediccion, variacion = predecir_mes_siguiente(ticker)
-        if prediccion is not None:
-            st.metric("Precio predicho para el próximo mes", f"${prediccion:.2f}")
-            st.write(f"Variación esperada: {variacion:.2f}%")
-            st.write("Datos recientes de la acción:")
-            datos_diarios = obtener_datos_acciones(ticker)
-            st.dataframe(datos_diarios[['Open', 'High', 'Low', 'Close', 'Volume']].tail(10))
+        try:
+            prediccion, variacion = predecir_mes_siguiente(ticker)
+            if prediccion is not None:
+                st.metric("Precio predicho para el próximo mes", f"${prediccion:.2f}")
+                st.write(f"Variación esperada: {variacion:.2f}%")
+                st.write("Datos recientes de la acción:")
+                datos_diarios = obtener_datos_acciones(ticker)
+                st.dataframe(datos_diarios[['Open', 'High', 'Low', 'Close', 'Volume']].tail(10))
+        except Exception as e:
+            st.error(f"Error al predecir el precio de la acción: {e}")
 
 with tab2:
     # Selección múltiple
@@ -34,11 +37,14 @@ with tab2:
     if st.button("Ejecutar predicción múltiple"):
         resultados = []
         for ticker in tickers_seleccionados:
-            prediccion, variacion = predecir_mes_siguiente(ticker)
-            if prediccion is not None:
-                resultados.append((ticker, prediccion, variacion))
-                st.metric(f"{ticker} - Precio predicho", f"${prediccion:.2f}")
-                st.write(f"{ticker} - Variación esperada: {variacion:.2f}%")
+            try:
+                prediccion, variacion = predecir_mes_siguiente(ticker)
+                if prediccion is not None:
+                    resultados.append((ticker, prediccion, variacion))
+                    st.metric(f"{ticker} - Precio predicho", f"${prediccion:.2f}")
+                    st.write(f"{ticker} - Variación esperada: {variacion:.2f}%")
+            except Exception as e:
+                st.error(f"Error al predecir el precio de la acción {ticker}: {e}")
         
         if resultados:
             mejor_accion = max(resultados, key=lambda x: x[2])
