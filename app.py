@@ -31,8 +31,7 @@ with tab1:
 
 with tab2:
     # Selección múltiple
-    num_acciones = st.slider("Seleccione el número de acciones a comparar:", 2, 5)
-    tickers_seleccionados = st.multiselect("Seleccione las acciones:", sp500_tickers, sp500_tickers[:num_acciones])
+    tickers_seleccionados = st.multiselect("Seleccione las acciones:", sp500_tickers)
     
     if st.button("Ejecutar predicción múltiple"):
         resultados = []
