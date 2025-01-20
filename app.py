@@ -27,7 +27,7 @@ with tab1:
                 datos_diarios = obtener_datos_acciones(ticker)
                 st.dataframe(datos_diarios[['Open', 'High', 'Low', 'Close', 'Volume']].tail(10))
         except Exception as e:
-            st.error(f"Error al predecir el precio de la acción: {e}")
+            st.info(f"No se pudieron encontrar datos de la acción: {e}")
 
 with tab2:
     # Selección múltiple
@@ -43,7 +43,7 @@ with tab2:
                     st.metric(f"{ticker} - Precio predicho", f"${prediccion:.2f}")
                     st.write(f"{ticker} - Variación esperada: {variacion:.2f}%")
             except Exception as e:
-                st.error(f"Error al predecir el precio de la acción {ticker}")
+                st.info(f"No se pudieron encontrar datos de la acción {ticker}")
         
         if resultados:
             mejor_accion = max(resultados, key=lambda x: x[2])
