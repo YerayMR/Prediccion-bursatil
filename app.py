@@ -43,7 +43,7 @@ with tab2:
                     st.metric(f"{ticker} - Precio predicho", f"${prediccion:.2f}")
                     st.write(f"{ticker} - Variación esperada: {variacion:.2f}%")
             except Exception as e:
-                st.error(f"Error al predecir el precio de la acción {ticker}: {e}")
+                st.error(f"Error al predecir el precio de la acción {ticker}")
         
         if resultados:
             mejor_accion = max(resultados, key=lambda x: x[2])
